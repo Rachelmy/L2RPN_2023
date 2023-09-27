@@ -6,6 +6,9 @@ link: https://github.com/AsprinChina/L2RPN_NIPS_2020_a_PPO_Solution/blob/master/
 Modified:
 Shourya Bose | Qiuling Yang | Yu Zhang
 mail: shbose@ucsc.edu
+
+How-to: Once all .npz files are generated after running this code, put the files in the same folder as the agent
+and use the agent. Ensure that the number of .npz files are the same as the number of lines in the environment.
 """
 import os
 import time
@@ -20,14 +23,14 @@ from lightsim2grid import LightSimBackend
 ## parser
 parser = argparse.ArgumentParser(description='MODDED_TEACHER')
 
-parser.add_argument('--samplestep',type=int,default=72)
-parser.add_argument('--supress_int_logs',type=int,default=1)
-parser.add_argument('--topn',type=int,default=500)
-parser.add_argument('--filename',type=str,default='act.npz')
-parser.add_argument('--save_every',type=int,default=3)
-parser.add_argument('--deg_of_sep',type=int,default=2) # how many degrees of separation to query
-parser.add_argument('--n_episodes',type=int,default=25)
-parser.add_argument('--use_parallel',type=int,default=0)
+parser.add_argument('--samplestep',type=int,default=72,help="Offset of random fast forwarding.")
+parser.add_argument('--supress_int_logs',type=int,default=1,help="Supress verbose logs.")
+parser.add_argument('--topn',type=int,default=350,help="n for saving top-n unitary actions for each line.")
+parser.add_argument('--filename',type=str,default='act.npz',help="Suffix of filename of lookup table for each lines unitary actions.")
+parser.add_argument('--save_every',type=int,default=3,help="Number of episodes or fast forward realizations at which a save will be done.")
+parser.add_argument('--deg_of_sep',type=int,default=4,help="Degree of separation from overloaded line for querying unitary actions.")
+parser.add_argument('--n_episodes',type=int,default=25,help="Total number of realizations of fast forwards.")
+parser.add_argument('--use_parallel',type=int,default=0,help="Indicator to use parallelization or not.")
 
 args = parser.parse_args()
 
@@ -125,6 +128,8 @@ if __name__ == "__main__":
         comm = MPI.COMM_WORLD
         rank = comm.Get_rank()
         size = comm.Get_size()
+    else:
+        rank = 0
     
     # init the environment
     env = grid2op.make(envname, backend=LightSimBackend())

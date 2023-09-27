@@ -1,6 +1,8 @@
-# Enhancing enumeration and optimization strategies for power network efficiency
+# Enhancing enumeration and optimization strategies for power network operation
 
 **Authors**: Shourya Bose, Qiuling Yang, Yu Zhang
+
+**Update**: Our solution ranked first for L2RPN Delft 2023!
 
 
 We present a candidate entry for the [Delft L2RPN 2023 competition](https://codalab.lisn.upsaclay.fr/competitions/12420). The competition is built on top of the electric grid simulator [Grid2Op](https://github.com/rte-france/Grid2Op), which allows for temporal simulation of an electric grid with continuous and discrete actions, in an episodic fashion. The goal is to prevent a blackout, and while doing so, reduce the economic costs of running the grid.
