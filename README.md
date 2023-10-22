@@ -61,16 +61,19 @@ You can just run it with python.
 	
 It supports the following arguments
 
-	--samplestep # how many steps to skip in an ep.
-	--supress_int_logs # set to nonzero to make it less verbose
+	--envname # the name of the grid2op environment
+	--samplestep # length of range in which to givide fast forwards
+	--cap_fast_forward_at # timestep beyond which fast forwards will not move
+	--supress_int_logs # set to nonzero to make search process less verbose
 	--topn # limit to number of unitary actions per line (i.e. top n)
 	--filename # file for each line saved as line_x_[filename], where x is line number
 	--save_every # save records every .. episodes
-	--deg_of_sep # how many degrees of separation you want in the `neighbor of neighbors' approach?
-	--n_episodes # number of episodes
+	--deg_of_sep # degrees of separation in the `neighbor of neighbors' approach
 	--use_parallel # set to nonzero to use parallelism
+	--data_path # the data path where to download the data file for envname
+	--prefix # the prefix to set the data path where the files will be saved
 	
-Here's how to use parallelism with OpenMPI. Suppose you want to use 20 workers and have created a job which has 20 worker cores available. Run as
+Here's how to use parallelism with OpenMPI. Suppose you want to use 20 workers on 1 node and have created a job which has 20 worker cores available. Run as
 
 	mpiexec -np 20 --map-by core:PE=1 python Simulations.py --use_parallel 1
 	
